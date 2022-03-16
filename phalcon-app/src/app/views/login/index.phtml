@@ -12,16 +12,6 @@
         <?php echo $this->tag->textField("password"); ?>
 
         <p>
-        <?php echo $this->tag->submitButton("Register"); ?>
+        <?php echo $this->tag->submitButton("Login"); ?>
     </p>
     </p>
-
-    <?php foreach ($users as $user => $value) { ?>
-            <tr>
-                <td><?php echo $value->id; ?></td>
-                <td><?php // echo $value->name; ?></td>
-                <td><?php  // echo $value->email; ?></td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
