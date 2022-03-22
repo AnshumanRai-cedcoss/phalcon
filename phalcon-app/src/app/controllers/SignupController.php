@@ -9,8 +9,7 @@ class SignupController extends Controller{
     }
     
     public function testAction(){
-        //  return "Hello";
-
+       header('location:login/index');
     }
 
     public function registerAction(){
@@ -28,8 +27,12 @@ class SignupController extends Controller{
             $this->request->getPost(), 
             [
                 'name',
+                'firstname',
+                'lastname',
                 'email',
-                'password'
+                'password',
+                'role',
+                'status'
             ]
         );
     }

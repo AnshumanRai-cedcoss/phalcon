@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use Phalcon\Mvc\Controller;
 
 class LoginController extends Controller
@@ -7,27 +7,44 @@ class LoginController extends Controller
     public function indexAction()
     {
       
-        
-        // $this->view->users = Users::find();
-        // return '<h1>Hello World!</h1>';
+
     }
 
-    public function registerAction(){ 
+    public function verifyAction()
+    {
       $data = $this->request->getPost();
-           $res = Users::find();
-        //    echo "Helo";
-           foreach ($res as $k => $v) {
-              if($v->email == $data["email"] && $v->password == $data["password"])
-              {
-                  
-                header("location:success");
-              }
-           }
-        // $res = $this->request->getPost() ;
+      // echo "<pre>";
+      // print_r($data);
+      // echo "</pre>";
+      // echo "on Admin dashboard";
+      // die();
+      $res = Users::findFirst(
+       [
+           'columns'    => '*',
+           'conditions' => 'email = ?1 AND password = ?2',
+           'bind'       => [
+               1 => $data["email"],
+               2 => $data["password"],
+           ]
+       ]
+   );
+      if(gettype($res) != "NULL")
+      {
+      // $this->view->users = $res ;
+       $_SESSION["user"] = array(
+        "id" => $res->id,
+        "name" => $res->name,
+        "email" => $res->email,
+        "role" => $res->role,
+      );
+    
+      $this->response->redirect('admin/dashboard');
+      } else {
         return "Incorrect email or password";
-   }
-   public function successAction()
-   {
-    $this->view->users = Users::find();
+      }
+    }
+   public function signOutAction()
+   { 
+
    }
 }

@@ -1,4 +1,18 @@
+<?php session_start();
+// print_r($_SESSION["user"]);
+if(isset($_SESSION["user"]))
+{
+if($_SESSION["user"]["role"] == "admin")
+{
+?>
+<h2>Add New User</h2>
+<?php } else {?>
 <h2>Sign up using this form</h2>
+<?php }
+} else {?>
+<h2>Sign up using this form</h2>
+<?php } ?>
+
 
 <?php echo $this->tag->form("signup/register"); ?>
 
@@ -6,21 +20,38 @@
         <label for="name">Name</label>
         <?php echo $this->tag->textField("name"); ?>
     </p>
+    
+    <p>
+        <label for="firstname">First Name</label>
+        <?php echo $this->tag->textField("firstname"); ?>
+    </p>
+
+    <p>
+        <label for="lastname">Last Name</label>
+        <?php echo $this->tag->textField("lastname"); ?>
+    </p>
 
     <p>
         <label for="email">E-Mail</label>
-        <?php echo $this->tag->textField("email"); ?>
+        <?php echo $this->tag->emailField("email"); ?>
     </p>
 
     <p>
         <label for="password">Password</label>
-        <?php echo $this->tag->textField("password"); ?>
+        <?php echo $this->tag->passwordField("password"); ?>
     </p>
-
+       
     <p>
         <label for="rpass">Re-type New Password</label>
-        <?php echo $this->tag->textField("rpass"); ?>
+        <?php echo $this->tag->passwordField("rpass"); ?>
     </p>
+    <p>
+        <input type="hidden" value ="pending" name="status">
+    </p>
+    <p>
+        <input type="hidden" value ="user" name="role">
+    </p>
+
     <p>
         <?php echo $this->tag->submitButton("Register"); ?>
     </p>
